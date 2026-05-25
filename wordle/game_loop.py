@@ -10,6 +10,8 @@ color_tags = {
     "GRAY": "black on grey37",
 }
 
+NO_OF_TRIES = 5
+
 while True:
     random_word_model = request_api(settings.api_url)
     if random_word_model is not None:
@@ -17,7 +19,7 @@ while True:
     else:
         break
 
-    no_of_tries = 5
+    no_of_tries = NO_OF_TRIES
 
     Game = WordleGame(random_word)
 
