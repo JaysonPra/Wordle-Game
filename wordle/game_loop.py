@@ -15,7 +15,7 @@ while True:
 
     Game = WordleGame(random_word)
 
-    print(f"Guess a word with {len(random_word)} letters!")
+    print(f"Guess a word with {len(Game.secret_word)} letters!")
     while no_of_tries > 0:
         guess = input("Enter your guess: ")
 
@@ -26,7 +26,7 @@ while True:
             continue
 
         if status == "correct":
-            print(f"You got it right! The correct answer was {random_word}")
+            print("You got it right!")
             break
 
         if status == "valid":
@@ -45,5 +45,7 @@ while True:
 
         no_of_tries -= 1
         print(f"\nTries left: {no_of_tries}\n")
+
+    print(f"The correct word was: {Game.secret_word}")
 
     break
