@@ -4,6 +4,12 @@ from config.settings import settings
 from wordle.game import WordleGame
 from wordle.word_ingestion import request_api
 
+color_tags = {
+    "GREEN": "black on green",
+    "YELLOW": "black on yellow",
+    "GRAY": "black on grey37",
+}
+
 while True:
     random_word_model = request_api(settings.api_url)
     if random_word_model is not None:
@@ -30,12 +36,6 @@ while True:
             break
 
         if status == "valid":
-            color_tags = {
-                "GREEN": "black on green",
-                "YELLOW": "black on yellow",
-                "GRAY": "black on grey37",
-            }
-
             output_blocks = [
                 f"[{color_tags.get(state, 'black on grey37')}] {Game.guess[i].upper()} [/]"
                 for i, state in enumerate(Game.current_solution)
