@@ -1,6 +1,7 @@
 import requests
-from config.logging_config import setup_logging
 from loguru import logger
+
+from config.logging_config import setup_logging
 from models.models import RandomWord
 
 setup_logging()
@@ -21,5 +22,7 @@ def request_api(api_url: str) -> RandomWord | None:
     if not word_data_list:
         logger.error("API returned an empty list")
         return None
+
+    logger.success(f"API Request Successful: {response.status_code}")
 
     return RandomWord.model_validate(word_data_list[0])
