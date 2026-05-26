@@ -1,3 +1,4 @@
+from collections import Counter
 from typing import Literal
 
 type GuessStatus = Literal["error", "valid", "correct"]
@@ -21,18 +22,21 @@ class WordleGame:
 
     def evaluate_guess(self) -> None:
         self.current_solution = ["GRAY" for _ in self.secret_word]
+        guess_counter = Counter(self.secret_word)
 
         # Green Pass
         for i, guess_letter in enumerate(self.guess):
             if guess_letter == self.secret_word[i]:
                 self.current_solution[i] = "GREEN"
+                guess_counter[guess_letter] -= 1
 
         # Yellow Pass
-        for i in range(len(self.guess)):
+        for i, guess_letter in enumerate(self.guess):
             if self.current_solution[i] == "GREEN":
                 continue
-            if self.guess[i] in self.secret_word:
+            if guess_counter[guess_letter] > 0:
                 self.current_solution[i] = "YELLOW"
+                guess_counter[guess_letter] -= 1
 
     def guess_word(self, guess: str) -> tuple[GuessStatus, str]:
         self.guess = guess.lower()
